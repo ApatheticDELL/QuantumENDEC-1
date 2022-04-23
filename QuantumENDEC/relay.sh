@@ -230,8 +230,7 @@ fi
 echo -n "+" >> same.txt
 echo -n "0600" >> same.txt
 echo -n "-" >> same.txt
-date +%j | xargs echo -n >> same.txt
-cat relay.xml | grep -oP '(?<=<effective>).*?(?=</effective>)' | grep -oP '(?<=T).*?(?=-)' | grep -Po '.*(?=...$)' | xargs echo -n >> same.txt
+TZ='UTC' date +%j%H%M | xargs echo -n >> same.txt
 echo -n "-" >> same.txt
 echo -n "$CALSIGN" >> same.txt #YOUR CALLSIGN
 echo -n "-" >> same.txt
