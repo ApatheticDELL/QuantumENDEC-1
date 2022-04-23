@@ -264,8 +264,18 @@ if grep "Broadcast Audio" relay.xml; then
 	cat relay.xml | grep -oP '(?<=<valueName>layer:SOREM:1.0:Broadcast_Text</valueName><value>).*?(?=</value>)' | head -n 1 > audio.txt
 	cp audio.txt Win/OBS.txt
 	echo "grabbing audio"
+	sed 's/^.*Broadcast Audio/<resource><resourceDesc>Broadcast Audio/' relay.xml > B64-BCA.xml
+	sed --in-place 's|</resource>.*|</resource>|' B64-BCA.xml
 	BCA=$(grep -oPm1 "(?<=<uri>)[^<]+" relay.xml | head -n 1);
-	wget -c -A '*.mp3' -r -l 1 -nd $BCA -O audio.mp3
+	if [[ $BCA == "https://" ]]; then
+		echo "broadcast audio confirmed, HTTPS"
+		wget -c -A '*.mp3' -r -l 1 -nd $BCA -O audio.mp3
+	else
+		echo "BASE64? Lets try that."
+		grep -oPm1 "(?<=<derefUri>)[^<]+" B64-BCA.xml | head -n 1 > AudioB64.txt
+		base64 AudioB64.txt -d > audio.mp3
+		rm B64-BCA.xml
+	fi
 else
 	echo "No Broadcast audio"
 	rm audio.txt
