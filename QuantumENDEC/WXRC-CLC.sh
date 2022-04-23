@@ -1,0 +1,13 @@
+if grep -E '043100|043200|043220|043230|043240|046600|046610|046620|046630|046640' NewAreas.txt; then
+	echo "XMJ 225"
+	WEBHOOK_URL="https://discord.com/api/webhooks/964311287779721296/MVriiKS5GS4g8ydz2CKOsiaF4a34aIZyL4vOoO1-Nev7rgwF-Vz2mNTAIdyRlkQRYRZl"
+	curl \
+	  -F 'payload_json={"username": "WXR Guide", "content": "<@&964702921528860763> HEY, XMJ 225 (162.400 MHz) IN TORONTO ONTARIO IS (probably) ABOUT TO GO OFF!"}' \
+	  $WEBHOOK_URL
+else
+	echo "Nothing for XMJ225"
+fi
+
+exit 0
+#964702921528860763
+#<@&964702921528860763> HEY, XMJ 225 (162.400 MHz) IN TORONTO ONTARIO IS (probably) ABOUT TO GO OFF!

@@ -1,0 +1,25 @@
+clear
+echo "Welcome to"
+figlet "QuantumENDEC"
+echo "                            by ApatheticDELL                              "
+echo ""
+echo "Version 2.0"
+echo ""
+echo "Canadain CAP reciver edition"
+echo ""
+echo "Just press enter to start, or select an option"
+echo "0 - Exit"
+read SELECT
+
+case $SELECT in
+derg) cowsay -f dragon "//uwu//" ;;
+0) clear ; echo "Exiting..." ; exit 0 ;;
+*)
+echo "3 Terminal tabs will now open... all 3 are for the QuantumENDEC program"
+sleep 1
+gnome-terminal --tab -- bash -ic "bash one.sh"
+gnome-terminal --tab -- bash -ic "python3 moni.py"
+sleep 2
+gnome-terminal --tab -- bash -ic "bash AutoWipe.sh"
+;;
+esac

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+  <identifier>473E9B47-D474-B3F1-9765-1AFED0761075</identifier>
+  <sender>QE</sender>
+  <sent>2014-07-08T10:09:38-05:00</sent>
+  <status>Actual</status>
+  <msgType>Test</msgType>
+  <scope>Public</scope>
+  <note>This is an internal test, this file. Its a sample XML file to drop in /xmls, just keep a copy of it just incase you wanna reuse it.</note>
+  <code>profile:CAP-CP:0.4</code>
+  <code>layer:SOREM:1.0</code>
+  <info>
+    <language>en-CA</language>
+    <category>Met</category>
+    <event>Required Monthly Test</event>
+    <urgency>Immediate</urgency>
+    <severity>Extreme</severity>
+    <certainty>Observed</certainty>
+    <eventCode>
+      <valueName>SAME</valueName>
+      <value>RMT</value>
+    </eventCode>
+    <senderName>QuantumENDEC</senderName>
+    <headline>Required Monthly Test</headline>
+    <description>This is a required monthly test of the QuantumENDEC emergency alerting system, This is only a test.</description>
+    <parameter>
+      <valueName>layer:SOREM:1.0:Broadcast_Text</valueName>
+      <value>This is the WXV24 required monthly test of the QuantumENDEC emergency alerting system, This is only a test.</value>
+    </parameter>
+    <parameter>
+      <valueName>layer:SOREM:1.0:Broadcast_Immediately</valueName>
+      <value>Yes</value>
+    </parameter>
+    <parameter>
+      <valueName>layer:EC-MSC-SMC:1.1:Newly_Active_Areas</valueName>
+      <value>000000</value>
+    </parameter>
+    <resource>
+      <resourceDesc>Broadcast Audio</resourceDesc>
+      <mimeType>audio/mpeg</mimeType>
+      <uri>https://od.lk/s/MjdfMTQyNjQ1MDJf/AKQ-RMT-Aud.mp3</uri>
+    </resource>
+    <area>
+      <areaDesc>Test</areaDesc>
+      <geocode>
+        <valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+        <value>000000</value>
+      </geocode>
+    </area>
+  </info>
+</alert>
