@@ -247,6 +247,7 @@ cat same.txt
 echo "Generating Header"
 rm same.wav
 rm same.mp3
+sed --in-place -i ':a;N; s/\n//; ta' same.txt
 SAMEX=$(cat same.txt);
 echo "$SAMEX" | minimodem --tx same --startbits 0 --stopbits 0 --sync-byte=0xAB -f same.wav
 ffmpeg -y -i same.wav -vn -ar 48000 -ac 2 -b:a 224k same.mp3
@@ -350,7 +351,7 @@ esac
 
 tr '\n' ' ' < audio.txt | sed 's/>[ \t]*</></g' | sed '/<\/\n/g' > 2aud.txt
 cat 2aud.txt >> Discord.txt
-sed --in-place -i ':a; N; s/\n/ /; ta' Discord.txt
+sed --in-place -i ':a; N; s/\n//; ta' Discord.txt
 sed --in-place 's/;/./g' Discord.txt
 
 message=$(cat Discord.txt);
