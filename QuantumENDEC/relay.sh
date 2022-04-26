@@ -4,7 +4,6 @@
 #THIS LITTLE PART IS THE CONFIG#
 CALSIGN="NCC/1701" #YOUR CALLSIGN FOR THE SAME HEADER, MAKSURE THERE IS NO - (DASHES). USE / (FORWARD SLASH) INSTEAD.
 WEBHOOK_URL="webhook.com" #WEBHOOK URL FOR YOUR DISCORD SERVER!
-BOTNAME="Emergency Alert System" #TO CHANGE THE NAME OF THE DISCORD BOT, IF YOU WANT TO NAME IT SOMETHING COOL.
 CLSS="clear" #WHEN ON "clear" IT WILL CLEAR THE TERMINAL WINDOW AT SOME POINTS, CHANGE/REMOVE IT FOR DEBUGGING REASONS.
 
 $CLSS
@@ -34,7 +33,7 @@ if grep "AKR24-EAS-SYSTEMTEST-420" ipaws.xml; then
 	echo "System check!"
 	message=$(date +"QuantumENDEC: SYSTEM CHECK | %T %Z");
 	curl \
-	  -F 'payload_json={"username": "'"$BOTNAME"'", "content": "'"$message"'"}' \
+	  -F 'payload_json={"content": "'"$message"'"}' \
 	  $WEBHOOK_URL
 	$CLSS
 	echo "System check was sent..."
@@ -351,13 +350,17 @@ esac
 
 tr '\n' ' ' < audio.txt | sed 's/>[ \t]*</></g' | sed '/<\/\n/g' > 2aud.txt
 cat 2aud.txt >> Discord.txt
+sed --in-place -i ':a; N; s/\n/ /; ta' Discord.txt
 sed --in-place 's/;/./g' Discord.txt
+
 message=$(cat Discord.txt);
 
+#echo SENDING DISCORD MESSAGE
 curl \
-  -F 'payload_json={"username": "'"$BOTNAME"'", "content": "'"$message"'"}' \
+  -F 'payload_json={"content": "'"$message"'"}' \ #change to "-F 'payload_json={"username": "'"$BOTNAME"'", "content": "'"$message"'"}' \"
   -F "file1=@ipaws.xml" \
   $WEBHOOK_URL
+#and and a BOTNAME value if you will want to use a different name
 
 dt=$(date '+%d-%m-%YT%H-%M-%S');
 echo "making alert$dt"
