@@ -46,7 +46,7 @@ fi
 
 echo "Getting EN (English)" #or change to FR (French) if you want if you changed the bottom. (optional, won't affect operation, but can avoid confusion.)
 tr '\n' ' ' < ipaws.xml | sed 's/>[ \t]*</></g' | sed '/<\/\n/g' > prerelay.xml
-sed --in-place 's/^.*en-CA/<alert><info><language>en-CA/' prerelay.xml #change to fr-CA to get only french, or hash/remove this line to get whatever comes first... but be warned, you may have to change the TTS function near the end of the file.
+sed --in-place 's+^.*<language>en-CA</language>+<alert><info><language>en-CA</language>+' prerelay.xml #change to fr-CA to get only french, or hash/remove this line to get whatever comes first... but be warned, you may have to change the TTS function near the end of the file.
 grep -oPm1 '(?<=<info>).*?(?=</info>)' prerelay.xml | head -n 1 > relay.xml #| xargs -0 echo -n
 
 #remove exit 0 if want to relay minor alerts and/or past alerts.
@@ -273,7 +273,7 @@ if grep "Broadcast Audio" relay.xml; then
 	sed 's/^.*Broadcast Audio/<resource><resourceDesc>Broadcast Audio/' relay.xml > B64-BCA.xml
 	sed --in-place 's|</resource>.*|</resource>|' B64-BCA.xml
 	BCA=$(grep -oPm1 "(?<=<uri>)[^<]+" relay.xml | head -n 1);
-	if [[ $BCA == "https://" ]]; then
+	if [[ $BCA == *"https://"* ]]; then
 		echo "broadcast audio confirmed, HTTPS"
 		wget -c -A '*.mp3' -r -l 1 -nd $BCA -O audio.mp3
 	else
