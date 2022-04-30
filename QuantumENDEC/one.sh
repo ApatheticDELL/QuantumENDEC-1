@@ -1,1 +1,1 @@
-while true ; do sh relay.sh ; done
+while true ; do bash relay.sh ; done
