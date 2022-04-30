@@ -67,7 +67,7 @@ esac
 
 gmt begin premap png
 	gmt coast -R"$AREA"+r0.50 -Ggray -Sblue -N1/1p,black -N2/0.5p -W -Da
-	gmt plot @poly.csv -h1 -i1,0 -Gred@50 -Wthinnest -l"$ALERT1"
+	gmt plot poly.csv -h1 -i1,0 -Gred@50 -Wthinnest -l"$ALERT1"
 	END
 gmt end
 
