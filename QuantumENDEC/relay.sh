@@ -231,7 +231,8 @@ echo -n "0600" >> same.txt
 echo -n "-" >> same.txt
 TZ='UTC' date +%j | xargs echo -n >> same.txt
 if grep "<effective>" relay.xml; then
-	grep -oP '(?<=<effective>).*?(?=</effective>)' relay.xml | grep -oP '(?<=T).*?(?=-)' | grep -Po '.*(?=...$)' | xargs echo -n >> same.txt
+	TIMEb=$(grep -oP '(?<=<effective>).*?(?=</effective>)' relay.xml | grep -oP '(?<=T).*?(?=-)' | grep -Po '.*(?=...$)' | sed 's/://g');
+	echo $TIMEb >> same.txt
 else
 	echo "no tag"
 	TZ='UTC' date +%H%M | xargs echo -n >> same.txt
@@ -253,13 +254,13 @@ echo "$SAMEX" | minimodem --tx same --startbits 0 --stopbits 0 --sync-byte=0xAB 
 ffmpeg -y -i same.wav -vn -ar 48000 -ac 2 -b:a 224k same.mp3
 
 echo "Checking header"
-SAMECHECK=0
-cmp --silent same.txt sameold.txt || SAMECHECK=1
-case $SAMECHECK in
-0) echo "This SAME code has been already used!" ; exit 0 ;;
-1) $CLSS ; echo "This SAME code is new!" ; mv same.txt sameold.txt ;;
-*) echo "SAMECHECK - This should not happen? Check code..." ;;
-esac
+if grep "$SAMEX" sameold.txt; then
+	echo "not new, exiting"
+	exit 0
+else
+	echo "new"
+	echo -e "$SAMEX\n" >> sameold.txt
+fi
 
 rm audio.wav
 rm audio.mp3
