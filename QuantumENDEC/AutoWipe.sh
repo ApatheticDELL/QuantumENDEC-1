@@ -5,6 +5,7 @@ do
 	echo "Sending System test"
 	rm alerts/*
 	rm xmls/*
+	rm sameold.txt
 	cp TESTER.xml xmls/alert.xml
 	echo "Last QE refresh: $(date)"
 	sleep 4h
