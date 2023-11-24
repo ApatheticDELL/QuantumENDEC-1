@@ -1,5 +1,7 @@
+QuantumENDEC (v1.2.0)
+[OUTDATED, PLEASE USE v3]
+
 This is QuantumENDEC CAP-CP Edition, created by ApatheticDELL.
-Version 2.0.
 
 And this is the readme file.
 
